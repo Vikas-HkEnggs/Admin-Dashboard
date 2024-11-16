@@ -1,7 +1,7 @@
 const Input = ({ id, type, label, placeholder, required, value, onChange, }) => {
   return (
     <div className="">
-      <label htmlFor={id} className="block mb-2 font-medium text-dark">
+      <label htmlFor={id} className="text-black mb-2 block font-medium">
         {label}
       </label>
       <input
@@ -9,7 +9,7 @@ const Input = ({ id, type, label, placeholder, required, value, onChange, }) => 
         name={id}
         id={id}
         placeholder={placeholder}
-        className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+        className=" block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
         required={required}
         value={value} 
         onChange={onChange}

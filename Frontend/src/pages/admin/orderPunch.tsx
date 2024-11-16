@@ -184,11 +184,11 @@ const PurchaseForm = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex w-full">
+    <div className="flex min-h-screen w-full bg-gray-100">
        <ToastContainer />
       <div className="container mx-auto p-4">
-        <div className="bg-white rounded-lg shadow-lg p-6 md:p-10 max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold text-center mb-8">Order Punch</h1>
+        <div className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-lg md:p-10">
+          <h1 className="mb-8 text-center text-3xl font-bold">Order Punch</h1>
           <StepNavigator
             currentStep={currentStep}
             steps={[
@@ -233,7 +233,7 @@ const PurchaseForm = () => {
             )}
             {currentStep === 4 && (
               <div>
-                <h2 className="text-lg font-bold mb-4">Availability</h2>
+                <h2 className="mb-4 text-lg font-bold">Availability</h2>
                 
                 {formData.availability.message ? (
                   <p>{formData.availability.message}</p>
@@ -251,7 +251,7 @@ const PurchaseForm = () => {
                     {!formData.availability.available && (
                       <button
                         onClick={handleCreateIndent}
-                        className="mt-4 bg-red-500  py-2 px-4 rounded"
+                        className="mt-4 rounded  bg-red-500 px-4 py-2"
                       >
                         Create Indent
                       </button>
@@ -260,7 +260,7 @@ const PurchaseForm = () => {
                 )}
                 <button
                   onClick={handleRestart}
-                  className="mt-4 bg-gray-500 text-white py-2 px-4 rounded"
+                  className="mt-4 rounded bg-gray-500 px-4 py-2 text-white"
                 >
                   Restart Process
                 </button>

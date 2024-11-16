@@ -4,7 +4,6 @@ import {
   FilePlus,
   House,
   LayoutList,
-  Rows4,
   ShoppingCart,
   TableProperties,
   UserPlus,

@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@/components/Elements/Button";
 
 const FormFooter = ({ currentStep, nextStep, prevStep, validateStep }) => (
-  <div className="flex justify-between mt-6">
+  <div className="mt-6 flex justify-between">
     {currentStep > 1 && (
       <Button type="button" onClick={prevStep}>
         Previous

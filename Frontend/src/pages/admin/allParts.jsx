@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { UserRoundPlus, CirclePlus, Plus, Minus, X } from "lucide-react";
+import { CirclePlus, Plus, Minus, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Modal from "react-modal";
 import Button from "@/components/Elements/Button";

@@ -5,7 +5,7 @@ const ReviewStep = ({ formData, products, options }) => {
   
     return (
       <div>
-        <h2 className="text-lg font-bold mb-4">Review Your Details</h2>
+        <h2 className="mb-4 text-lg font-bold">Review Your Details</h2>
         <ul>
           <li className="p-1">
             <strong>Customer Name:</strong> {formData.customerName}

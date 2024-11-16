@@ -36,7 +36,7 @@ const ProductSelectionStep = ({
 
     {options.length > 0 && (
       <div className="mt-4 max-h-72 overflow-y-auto">
-        <label className="block mb-2 text-base font-medium text-gray-900">
+        <label className="mb-2 block text-base font-medium text-gray-900">
           Product Details
         </label>
         {options.map((option) => (
@@ -67,7 +67,7 @@ const ProductSelectionStep = ({
             {/* Boolean type */}
             {option.type === "boolean" && (
               <div>
-                <label className="block font-medium text-dark mb-1">
+                <label className="mb-1 block font-medium">
                   {option.name}
                 </label>
                 <div className="flex items-center">

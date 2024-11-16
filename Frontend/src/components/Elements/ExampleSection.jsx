@@ -5,7 +5,7 @@ const ExampleSection = ({ currentStep }) => {
     if (currentStep === 1) {
       return (
         <div>
-          <h4 className="text-lg font-semibold mb-2">Example</h4>
+          <h4 className="mb-2 text-lg font-semibold">Example</h4>
           <p>
             <strong>Customer Name:</strong> Vikas Kashyap
           </p>
@@ -17,7 +17,7 @@ const ExampleSection = ({ currentStep }) => {
     } else if (currentStep === 2) {
       return (
         <div>
-          <h4 className="text-lg font-semibold mb-2">Product Details</h4>
+          <h4 className="mb-2 text-lg font-semibold">Product Details</h4>
           <p>Product details will be displayed here as per selection.</p>
         </div>
       );
@@ -26,7 +26,7 @@ const ExampleSection = ({ currentStep }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 md:p-10 max-w-3xl mx-auto">
+    <div className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-lg md:p-10">
       {renderExample()}
     </div>
   );

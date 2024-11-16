@@ -87,14 +87,14 @@ export default function IdPassGenerate() {
     <>
       <form
         onSubmit={handleSubmit}
-        className="m-auto mt-4 h-auto bg-white rounded-lg shadow-lg p-6 md:p-10 max-w-3xl mx-auto"
+        className="m-auto mt-4 h-auto max-w-3xl rounded-lg bg-white p-6 shadow-lg md:p-10"
       >
-        <h1 className="text-center text-2xl font-bold text-primary mb-8">
+        <h1 className="mb-8 text-center text-2xl font-bold">
           Employee Registration Form
         </h1>
 
-        <div className="flex flex-wrap -mx-4 mb-4">
-          <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0">
+        <div className="-mx-4 mb-4 flex flex-wrap">
+          <div className="mb-4 w-full px-4 md:mb-0 md:w-1/2">
             <Input
               id="name"
               type="text"
@@ -105,7 +105,7 @@ export default function IdPassGenerate() {
               onChange={handleChange}
             />
           </div>
-          <div className="w-full md:w-1/2 px-4">
+          <div className="w-full px-4 md:w-1/2">
             <Input
               id="email"
               type="email"
@@ -118,8 +118,8 @@ export default function IdPassGenerate() {
           </div>
         </div>
 
-        <div className="flex flex-wrap -mx-4 mb-4">
-          <div className="relative w-full md:w-1/2 px-4 mb-4 md:mb-0">
+        <div className="-mx-4 mb-4 flex flex-wrap">
+          <div className="relative mb-4 w-full px-4 md:mb-0 md:w-1/2">
             <Input
               id="password"
               type={showPassword ? "text" : "password"}
@@ -137,7 +137,7 @@ export default function IdPassGenerate() {
               {showPassword ? <EyeOff /> : <Eye />}
             </button>
           </div>
-          <div className="relative w-full md:w-1/2 px-4">
+          <div className="relative w-full px-4 md:w-1/2">
             <Input
               id="confirmPassword"
               type={showConfirmPassword ? "text" : "password"}
@@ -156,13 +156,13 @@ export default function IdPassGenerate() {
               {showConfirmPassword ? <EyeOff /> : <Eye />}
             </button>
             {passwordMismatch && (
-              <p className="text-red-500 text-sm mt-1">Passwords do not match.</p>
+              <p className="mt-1 text-sm text-red-500">Passwords do not match.</p>
             )}
           </div>
         </div>
 
-        <div className="flex flex-wrap -mx-4 mb-4">
-          <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0">
+        <div className="-mx-4 mb-4 flex flex-wrap">
+          <div className="mb-4 w-full px-4 md:mb-0 md:w-1/2">
             <Dropdown
               label="Role"
               name="role"
@@ -175,7 +175,7 @@ export default function IdPassGenerate() {
               onChange={(e) => setData({ ...data, role: e.target.value })}
             />
           </div>
-          <div className="w-full md:w-1/2 px-4">
+          <div className="w-full px-4 md:w-1/2">
             <Dropdown
               label="Designation"
               name="designation"
@@ -190,8 +190,8 @@ export default function IdPassGenerate() {
           </div>
         </div>
 
-        <div className="flex flex-wrap -mx-4 mb-4">
-          <div className="w-full md:w-1/2 px-4 mb-4 md:mb-0">
+        <div className="-mx-4 mb-4 flex flex-wrap">
+          <div className="mb-4 w-full px-4 md:mb-0 md:w-1/2">
             <Dropdown
               label="Department"
               name="department"
@@ -204,7 +204,7 @@ export default function IdPassGenerate() {
               onChange={(e) => setData({ ...data, department: e.target.value })}
             />
           </div>
-          <div className="w-full md:w-1/2 px-4">
+          <div className="w-full px-4 md:w-1/2">
             <Input
               id="mobile"
               type="text"

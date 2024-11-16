@@ -151,13 +151,13 @@ const PurchaseForm = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen flex w-full">
+    <div className="flex min-h-screen w-full bg-gray-100">
       <div className="container mx-auto p-4">
-        <div className="bg-white rounded-lg shadow-lg p-6 md:p-10 max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold text-center mb-8">Order Punch</h1>
+        <div className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-lg md:p-10">
+          <h1 className="mb-8 text-center text-3xl font-bold">Order Punch</h1>
 
           <div className="mb-8">
-            <div className="flex justify-between mb-2">
+            <div className="mb-2 flex justify-between">
               {[
                 "Customer Info",
                 "Product Selection",
@@ -166,9 +166,9 @@ const PurchaseForm = () => {
               ].map((step, index) => (
                 <span
                   key={index}
-                  className={`text-xs font-semibold py-1 px-2 uppercase rounded-full ${
+                  className={`rounded-full px-2 py-1 text-xs font-semibold uppercase ${
                     currentStep >= index + 1
-                      ? "text-green-600 bg-green-200"
+                      ? "bg-green-200 text-green-600"
                       : "opacity-50"
                   }`}
                 >
@@ -176,9 +176,9 @@ const PurchaseForm = () => {
                 </span>
               ))}
             </div>
-            <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-200">
+            <div className="mb-4 flex h-2 overflow-hidden rounded bg-green-200 text-xs">
               <div
-                className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500 transition-all duration-500 ease-in-out"
+                className="flex flex-col justify-center whitespace-nowrap bg-green-500 text-center text-white shadow-none transition-all duration-500 ease-in-out"
                 style={{ width: `${(currentStep / 4) * 100}%` }}
               ></div>
             </div>
@@ -234,7 +234,7 @@ const PurchaseForm = () => {
 
                 {options.length > 0 && (
                   <div className="mt-4 max-h-72 overflow-y-auto">
-                    <label className="block mb-2 text-base font-medium text-gray-900">
+                    <label className="mb-2 block text-base font-medium text-gray-900">
                       Product Details
                     </label>
                     {options.map((option) => (
@@ -268,7 +268,7 @@ const PurchaseForm = () => {
                         )}
                         {option.type === "boolean" && (
                           <div>
-                            <label className="block font-medium text-dark mb-1">
+                            <label className="mb-1 block font-medium">
                               {option.name}
                             </label>
                             <div className="flex items-center">
@@ -339,7 +339,7 @@ const PurchaseForm = () => {
 
             {currentStep === 3 && (
               <div>
-                <h2 className="text-lg font-bold mb-4">Review Your Details</h2>
+                <h2 className="mb-4 text-lg font-bold">Review Your Details</h2>
                 <ul>
                   <li>
                     <strong>Customer Name:</strong> {formData.customerName}
@@ -390,7 +390,7 @@ const PurchaseForm = () => {
 
             {currentStep === 4 && (
               <div>
-                <h2 className="text-lg font-bold mb-4">Availability</h2>
+                <h2 className="mb-4 text-lg font-bold">Availability</h2>
                 <p>{formData.availability.message}</p>
                 {!formData.availability.available && (
                   <Button
@@ -405,7 +405,7 @@ const PurchaseForm = () => {
               </div>
             )}
 
-            <div className="flex justify-between mt-6">
+            <div className="mt-6 flex justify-between">
               {currentStep > 1 && (
                 <Button type="button" onClick={prevStep}>
                   Previous

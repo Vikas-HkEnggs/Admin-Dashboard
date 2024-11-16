@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 
+
 # testing
 /coverage
 
@@ -18,6 +19,13 @@
 # misc
 .DS_Store
 *.pem
+
+# ESLint
+.eslintrc*
+.eslintcache
+eslint.config.mjs
+
+
 
 # debug
 npm-debug.log*

@@ -48,9 +48,9 @@ const AllEmployees = () => {
 
   return (
     <div>
-      <h1 className="mb-4 text-3xl ml-2">All Employees</h1>
+      <h1 className="mb-4 ml-2 text-3xl">All Employees</h1>
       <button
-        className="ml-2 absolute top-[110px] right-6 flex"
+        className="absolute right-6 top-[110px] ml-2 flex"
         onClick={createBtn}
       >
         <UserRoundPlus />

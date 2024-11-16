@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import Button from "@/components/Elements/Button";
 import Input from "@/components/Elements/Input";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles for the toast
 
 
@@ -68,10 +67,10 @@ const CreatePOForm = () => {
   };
 
   return (
-    <div className="flex justify-center mt-4">
+    <div className="mt-4 flex justify-center">
       <form
         onSubmit={handleSubmit}
-        className="w-full rounded-lg bg-white shadow-lg p-6 md:p-10 max-w-3xl mx-auto"
+        className="mx-auto w-full max-w-3xl rounded-lg bg-white p-6 shadow-lg md:p-10"
       >
         <h2 className="text-center text-2xl font-semibold text-gray-800">
           Create PO Form for the Product
@@ -98,11 +97,11 @@ const CreatePOForm = () => {
         />
 
         {/* Options Section */}
-        <div className="space-y-4 mt-6">
+        <div className="mt-6 space-y-4">
           {options.map((option, idx) => (
-            <div key={idx} className="space-y-2 p-4 border-b border-gray-200">
+            <div key={idx} className="space-y-2 border-b border-gray-200 p-4">
               {/* Select Type First */}
-              <div className="flex space-x-4 items-center">
+              <div className="flex items-center space-x-4">
                 <label className="block text-sm font-medium text-gray-700">
                   Type
                 </label>
@@ -111,7 +110,7 @@ const CreatePOForm = () => {
                   onChange={(e) =>
                     handleOptionChange(idx, "type", e.target.value)
                   }
-                  className="border rounded-md p-2 w-full"
+                  className="w-full rounded-md border p-2"
                   required
                 >
                   <option value="" disabled>
@@ -156,12 +155,12 @@ const CreatePOForm = () => {
 
               {/* SubOptions for boolean type */}
               {option.type === "boolean" && (
-                <div className="space-y-2 w-full mt-2">
+                <div className="mt-2 w-full space-y-2">
                   <label className="block text-sm font-medium text-gray-700">
                     SubOptions
                   </label>
                   {option.subOptions.map((sub, subIdx) => (
-                    <div key={subIdx} className="flex space-x-2 items-center">
+                    <div key={subIdx} className="flex items-center space-x-2">
                       <Input
                         id={`suboption-title-${idx}-${subIdx}`}
                         type="text"
@@ -188,7 +187,7 @@ const CreatePOForm = () => {
                             e.target.value
                           )
                         }
-                        className="border rounded-md p-2 w-full"
+                        className="w-full rounded-md border p-2"
                         required
                       >
                         <option value="" disabled>
@@ -224,7 +223,7 @@ const CreatePOForm = () => {
         </div>
 
         {/* Add Option and Option with SubOption buttons */}
-        <div className="flex space-x-4 mt-4">
+        <div className="mt-4 flex space-x-4">
           <Button
             type="button"
             onClick={addOptionRow}

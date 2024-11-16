@@ -58,7 +58,7 @@ const AddItems = () => {
        <ToastContainer />
       <form
         onSubmit={handleSubmit}
-        className="w-full space-y-6 rounded-lg bg-white shadow-lg p-6 md:p-10 max-w-3xl mx-auto"
+        className="mx-auto w-full max-w-3xl space-y-6 rounded-lg bg-white p-6 shadow-lg md:p-10"
       >
         <h2 className="text-center text-2xl font-semibold text-gray-800">
           Create {itemType === "product" ? "Product" : "Part"}
@@ -67,7 +67,7 @@ const AddItems = () => {
         {message && <p className="text-center text-sm">{message}</p>}
 
         {/* Item type navigation */}
-        <div className="flex justify-center space-x-4 mb-4">
+        <div className="mb-4 flex justify-center space-x-4">
           <Button
             type="button"
             onClick={() => setItemType("product")}
