@@ -1,6 +1,15 @@
-const Input = ({ id, type, label, placeholder, required, value, onChange, }) => {
+const Input = ({
+  id,
+  type,
+  label,
+  placeholder,
+  required,
+  value,
+  onChange,
+  className = "w-full", 
+}) => {
   return (
-    <div className="">
+    <div className={className}>
       <label htmlFor={id} className="text-black mb-2 block font-medium">
         {label}
       </label>
@@ -9,11 +18,10 @@ const Input = ({ id, type, label, placeholder, required, value, onChange, }) => 
         name={id}
         id={id}
         placeholder={placeholder}
-        className=" block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900"
+        className={`block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 ${className}`}
         required={required}
-        value={value} 
+        value={value}
         onChange={onChange}
-        
       />
     </div>
   );

@@ -1,7 +1,7 @@
 // Dropdown.js
 import React from "react";
 
-const Dropdown = ({ label, name, options, value, onChange, className = "" }) => {
+const Dropdown = ({ label, name, options, value, onChange, className = "w-full" }) => {
   return (
     <div className={` ${className}`}>
       <label className="mb-2 block font-medium ">
@@ -9,7 +9,7 @@ const Dropdown = ({ label, name, options, value, onChange, className = "" }) => 
       </label>
       <select
         name={name}
-        className="w-full rounded-lg border border-gray-300 bg-transparent px-4 py-3  "
+        className= {`rounded-lg border border-gray-300 bg-transparent px-4 py-3 ${className}`}
         value={value}
         onChange={onChange}
       >

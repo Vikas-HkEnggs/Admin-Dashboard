@@ -187,7 +187,7 @@ const PurchaseForm = () => {
     <div className="flex min-h-screen w-full bg-gray-100">
        <ToastContainer />
       <div className="container mx-auto p-4">
-        <div className="mx-auto max-w-3xl rounded-lg bg-white p-6 shadow-lg md:p-10">
+        <div className="mx-auto max-w-6xl rounded-lg bg-white p-6 shadow-lg md:p-10">
           <h1 className="mb-8 text-center text-3xl font-bold">Order Punch</h1>
           <StepNavigator
             currentStep={currentStep}

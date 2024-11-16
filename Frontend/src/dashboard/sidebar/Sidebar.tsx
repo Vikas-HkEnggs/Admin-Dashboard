@@ -10,7 +10,7 @@ interface SidebarProps {
 const style = {
   mobileOrientation: {
     start: "left-0 ",
-    end: "right-0 lg:left-0",
+    end: "left-0 lg:left-0",
   },
   container: "pb-32 lg:pb-12",
   close: "duration-700 ease-out hidden transition-all lg:w-24",

@@ -19,7 +19,7 @@ export function SidebarItems() {
   return (
     <ul className="md:pl-5">
       {data
-        .filter((item) => item.allowedRoles.includes(userRole)) // Filter based on userRole
+        .filter((item) => item.allowedRoles.includes(userRole))
         .map((item) => (
           <li key={item.title}>
             <Link href={item.link}>

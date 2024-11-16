@@ -59,6 +59,12 @@ export const data = [
     link: "/admin/orderPunch",
     allowedRoles: ["employee1", "employee2", "admin"],
   },
+  {
+    title: "Order Punch2",
+    icon: <DiamondPlus />,
+    link: "/admin/createOrder",
+    allowedRoles: ["employee1", "employee2", "admin"],
+  },
   // {
   //   title: "View Orders",
   //   icon: <Rows4 />,
