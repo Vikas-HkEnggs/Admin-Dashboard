@@ -227,7 +227,7 @@ const PurchaseForm = () => {
                   label="Quantity"
                   placeholder="Enter quantity"
                   required
-                  min="1"
+                  // min="1"
                   value={formData.quantity}
                   onChange={handleChange}
                 />
