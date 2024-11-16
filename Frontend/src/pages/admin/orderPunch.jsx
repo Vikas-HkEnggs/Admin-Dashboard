@@ -225,6 +225,7 @@ const PurchaseForm = () => {
                 />
                 <Button
                   type="submit"
+                  onClick={handleSubmit}
                   className="mt-4 "
                 >
                   Submit
