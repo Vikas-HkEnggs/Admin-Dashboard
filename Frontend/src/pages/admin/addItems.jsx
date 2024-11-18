@@ -19,7 +19,7 @@ const AddItems = () => {
     try {
       const apiUrl =
         itemType === "product"
-          ? "http://localhost:8080/api/v1/admin/addProducts"
+          ? "http://localhost:8080/api/v1/emp/addProducts"
           : "http://localhost:8080/api/v1/emp/addParts";
   
       const payload =

@@ -54,7 +54,7 @@ const CreatePOForm = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/v1/admin/add-products", {
+      await axios.post("http://localhost:8080/api/v1/admin/createPoForm", {
         name,
         productCode,
         options,

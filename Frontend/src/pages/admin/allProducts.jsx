@@ -18,7 +18,7 @@ const AllProducts = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v1/emp/allProducts",
+        "http://localhost:8080/api/v1/admin/allProducts",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

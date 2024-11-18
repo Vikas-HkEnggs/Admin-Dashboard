@@ -13,7 +13,7 @@ export default function Login() {
     e.preventDefault();
     setError(null);
     try {
-      const res = await axios.post("http://localhost:8080/api/v1/emp/login", data);
+      const res = await axios.post("https://backend-hlrb.onrender.com/api/v1/common/login", data);
       if (res.status === 200) {
         console.log("success login");
         console.log("Token:", res.data.token);

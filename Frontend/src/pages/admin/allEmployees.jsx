@@ -14,7 +14,7 @@ const AllEmployees = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/emp/all-employees",
+          "http://localhost:8080/api/v1/admin/allEmployees",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

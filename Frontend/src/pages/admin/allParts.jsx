@@ -20,7 +20,7 @@ const AllParts = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v1/emp/allParts",
+        "http://localhost:8080/api/v1/admin/allParts",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
