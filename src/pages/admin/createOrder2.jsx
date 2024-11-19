@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@/components/Elements/Button";
-import Dropdown from "@/components/Elements/Dropdown"; // Assuming you already have a custom Dropdown
+import Dropdown from "@/components/Elements/Dropdown"; 
 import Input from "@/components/Elements/Input";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Select from "react-select"; // Import react-select
+import Select from "react-select"; 
 
 const PurchaseForm = () => {
   const [products, setProducts] = useState([]);
@@ -58,6 +58,32 @@ const PurchaseForm = () => {
       }));
       setOptions(updatedOptions);
     }
+  };
+
+
+  const handleOptionChange = (optionId, value) => {
+    setFormData((prevData) => {
+      const updatedOptionsSelected = {
+        ...prevData.optionsSelected,
+        [optionId]: value,
+      };
+
+      const updatedSubOptions = { ...prevData.subOptions };
+      if (value === "Include") {
+        const option = options.find((opt) => opt.id === optionId);
+        option?.subOptions.forEach((subOption) => {
+          if (!updatedSubOptions[subOption.id]) {
+            updatedSubOptions[subOption.id] = "";
+          }
+        });
+      }
+
+      return {
+        ...prevData,
+        optionsSelected: updatedOptionsSelected,
+        subOptions: updatedSubOptions,
+      };
+    });
   };
 
   const handleChange = (e) => {
@@ -199,7 +225,7 @@ const PurchaseForm = () => {
               label="Select Product"
               name="productCode"
               options={products.map((product) => ({
-                label: `${product.product_name} - ${product.product_code}`, // Ensure product.productCode is used
+                label: `${product.product_name} - ${product.product_code}`, 
                 value: product.product_code,
               }))}
               value={formData.product}

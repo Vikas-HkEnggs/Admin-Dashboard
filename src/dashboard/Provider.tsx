@@ -10,19 +10,19 @@ interface ProviderValues {
   sidebarOpen?: boolean;
   openSidebar?: () => void;
   closeSidebar?: () => void;
-  userRole: string; // Include userRole in context
+  userRole: string; 
 }
 
 const Context = React.createContext<ProviderValues>({ userRole: "" });
 
 export function DashboardProvider({ children }: DashboardProviderProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [userRole, setUserRole] = useState(""); // Initialize userRole state
+  const [userRole, setUserRole] = useState(""); 
   const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Access localStorage only on the client side
+      
       const userData = JSON.parse(localStorage.getItem("user") || "{}");
       const role = userData?.role || "";
       setUserRole(role);

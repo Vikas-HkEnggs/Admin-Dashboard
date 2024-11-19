@@ -35,7 +35,7 @@ const PurchaseForm = () => {
   const handleProductChange = async (productCode) => {
     setFormData((prev) => ({ ...prev, product: productCode }));
     try {
-      const product = products.find((p) => p.productCode === productCode); // Match using productCode
+      const product = products.find((p) => p.productCode === productCode); 
       if (product) {
         const res = await axios.get(
           `http://localhost:8080/api/v1/emp/products/${product.id}/options`
@@ -124,7 +124,7 @@ const PurchaseForm = () => {
       const response = await axios.post(
         "http://localhost:8080/api/v1/emp/createOrder",
         {
-          product_code: formData.product, // productCode is directly stored in formData.product
+          product_code: formData.product, 
           customerName: formData.customerName,
           customerEmail: formData.customerEmail,
           quantity: formData.quantity,
@@ -214,7 +214,7 @@ const PurchaseForm = () => {
                   label="Product"
                   name="product"
                   options={products.map((product) => ({
-                    value: product.productCode, // Use productCode instead of id
+                    value: product.productCode, 
                     label: `${product.name} - ${product.productCode}`,
                   }))}
                   value={formData.product}

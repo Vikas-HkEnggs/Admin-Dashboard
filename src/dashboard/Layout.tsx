@@ -20,7 +20,7 @@ export function DashboardLayout(props: LayoutProps) {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Access localStorage only on the client side
+      
       const userData = JSON.parse(localStorage.getItem("user") || "{}");
       const role = userData?.role || "";
       setUserRole(role);

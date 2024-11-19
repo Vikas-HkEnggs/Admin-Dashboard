@@ -154,7 +154,7 @@ const PurchaseForm = () => {
         autoClose: 3000,
       });
   
-      setCurrentStep(4); // Move to Availability Step
+      setCurrentStep(4); 
     } catch (error) {
       console.error("Failed to submit order form:", error);
       toast.error("Failed to submit the order. Please try again.", {
@@ -166,7 +166,7 @@ const PurchaseForm = () => {
   
 
   const handleCreateIndent = () => {
-    // Logic for creating an indent
+    
     alert("Creating an indent for unavailable product...");
   };
 
