@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Button from "@/components/Elements/Button";
-import Dropdown from "@/components/Elements/Dropdown";
+import Dropdown from "@/components/Elements/Dropdown"; // Assuming you already have a custom Dropdown
 import Input from "@/components/Elements/Input";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; 
-
+import "react-toastify/dist/ReactToastify.css";
+import Select from "react-select"; // Import react-select
 
 const PurchaseForm = () => {
   const [products, setProducts] = useState([]);
+  const [company, setCompany] = useState([]);
   const [options, setOptions] = useState([]);
   const [formData, setFormData] = useState({
     companyName: "",
     customerEmail: "",
-    gstNumber:"",
-    phone: "",
+    gstNumber: "",
+    mobile_no: "",
     address: "",
     quantity: 1,
     product: "",
@@ -26,10 +27,7 @@ const PurchaseForm = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:8080/api/v1/admin/allProductsWithOptions"
-        );
-        console.log(res.data.products);
+        const res = await axios.get("https://backend-hlrb.onrender.com/api/v1/admin/allProductsWithOptions");
         setProducts(res.data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -38,65 +36,28 @@ const PurchaseForm = () => {
     fetchProducts();
   }, []);
 
-  const handleProductChange = async (productCode) => {
-    setFormData((prev) => ({ ...prev, product: productCode }));
-    try {
-      const product = products.find((p) => p.productCode === productCode); 
-      if (product) {
-        const res = await axios.get(
-          `http://localhost:8080/api/v1/emp/products/${product.id}/options`
-        );
-
-        const updatedOptions = res.data.map((option) => {
-          const productOption = product.options.find(
-            (opt) => opt.id === option.id
-          );
-          return {
-            ...option,
-            subOptions: productOption?.subOptions || [],
-          };
-        });
-
-        setOptions(updatedOptions);
+  useEffect(() => {
+    const fetchCompany = async () => {
+      try {
+        const res = await axios.get("https://backend-hlrb.onrender.com/api/v1/common/getAllSaleParty");
+        setCompany(res.data.data);
+      } catch (error) {
+        console.error("Error fetching companies:", error);
       }
-    } catch (error) {
-      console.error("Error fetching product options:", error);
+    };
+    fetchCompany();
+  }, []);
+
+  const handleProductChange = (product_code) => {
+    setFormData((prev) => ({ ...prev, product: product_code }));
+    const product = products.find((p) => p.product_code === product_code);
+    if (product) {
+      const updatedOptions = product.options.map((option) => ({
+        ...option,
+        subOptions: option.subOptions || [],
+      }));
+      setOptions(updatedOptions);
     }
-  };
-
-  const handleOptionChange = (optionId, value) => {
-    setFormData((prevData) => {
-      const updatedOptionsSelected = {
-        ...prevData.optionsSelected,
-        [optionId]: value,
-      };
-
-      const updatedSubOptions = { ...prevData.subOptions };
-      if (value === "Include") {
-        const option = options.find((opt) => opt.id === optionId);
-        option?.subOptions.forEach((subOption) => {
-          if (!updatedSubOptions[subOption.id]) {
-            updatedSubOptions[subOption.id] = "";
-          }
-        });
-      }
-
-      return {
-        ...prevData,
-        optionsSelected: updatedOptionsSelected,
-        subOptions: updatedSubOptions,
-      };
-    });
-  };
-
-  const handleSubOptionChange = (subOptionId, value) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      subOptions: {
-        ...prevData.subOptions,
-        [subOptionId]: value,
-      },
-    }));
   };
 
   const handleChange = (e) => {
@@ -104,33 +65,39 @@ const PurchaseForm = () => {
     setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-
-
+  const handleCompanyChange = (selectedOption) => {
+    // Automatically fill the other fields based on the selected company
+    const selectedCompany = company.find((comp) => comp.party_name === selectedOption.label);
+    if (selectedCompany) {
+      setFormData((prev) => ({
+        ...prev,
+        companyName: selectedCompany.party_name,
+        gstNumber: selectedCompany.gst_no,
+        customerEmail: selectedCompany.party_email,
+        mobile_no: selectedCompany.mobile_no,
+        address: selectedCompany.address,
+      }));
+    }
+  };
 
   const handleSubmit = async (e) => {
-    console.log(formData.customerEmail, formData.customerName);
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/emp/createOrder",
-        {
-          product_code: formData.product,
-          companyName: formData.companyName,
-          customerEmail: formData.customerEmail,
-          gstNumber: formData.gstNumber,
-          phone: formData.phone,
-          address: formData.address,
-          quantity: formData.quantity,
-          optionsSelected: {
-            ...formData.optionsSelected,
-            subOptions: formData.subOptions,
-          },
-        }
-      );
-  
+      const response = await axios.post("http://localhost:8080/api/v1/emp/createOrder", {
+        product_code: formData.product,
+        companyName: formData.companyName,
+        customerEmail: formData.customerEmail,
+        gstNumber: formData.gstNumber,
+        mobile_no: formData.mobile_no,
+        address: formData.address,
+        quantity: formData.quantity,
+        optionsSelected: {
+          ...formData.optionsSelected,
+          subOptions: formData.subOptions,
+        },
+      });
+
       const { statusMessage, productAvailable } = response.data;
-      console.log(statusMessage, productAvailable);
-  
       setFormData((prev) => ({
         ...prev,
         availability: {
@@ -138,12 +105,11 @@ const PurchaseForm = () => {
           available: productAvailable,
         },
       }));
-  
+
       toast.success("Order Created successfully!", {
         position: "top-right",
         autoClose: 3000,
       });
-  
     } catch (error) {
       console.error("Failed to submit order form:", error);
       toast.error("Failed to submit the order. Please try again.", {
@@ -153,16 +119,15 @@ const PurchaseForm = () => {
     }
   };
 
-
-
-  console.log(products);
+  const companyOptions = company.map((comp) => ({
+    label: comp.party_name,
+    value: comp.id,
+  }));
 
   return (
     <div className="container mx-auto p-4">
-       <ToastContainer />
-      <h1 className="text-3xl font-bold text-black mb-6 text-center">
-        Order Punch
-      </h1>
+      <ToastContainer />
+      <h1 className="text-3xl font-bold text-black mb-6 text-center">Order Punch</h1>
 
       <form className="space-y-8" onSubmit={handleSubmit}>
         {/* Customer Details */}
@@ -171,16 +136,15 @@ const PurchaseForm = () => {
             Customer Details
           </h2>
           <div className="flex flex-wrap gap-4 mt-4">
-            <Input
-              id="companyName"
-              type="text"
-              label="Company Name"
-              placeholder="Enter company name"
-              name="companyName"
-              value={formData.companyName}
-              onChange={handleChange}
-              className="w-64"
-            />
+            <div className="w-64">
+              <label className="text-black mb-2 block font-medium">Company Name</label>
+              <Select
+                options={companyOptions}
+                onChange={handleCompanyChange}
+                placeholder="Select Company"
+                className="rounded-lg  py-1"
+              />
+            </div>
             <Input
               id="gstNumber"
               type="text"
@@ -202,12 +166,12 @@ const PurchaseForm = () => {
               className="w-64"
             />
             <Input
-              id="phone"
+              id="mobile_no"
               type="number"
-              label="Phone Number"
-              placeholder="Enter phone number"
-              name="phone"
-              value={formData.phone}
+              label="Mobile Number"
+              placeholder="Enter Mobile number"
+              name="mobile_no"
+              value={formData.mobile_no}
               onChange={handleChange}
               className="w-44"
             />
@@ -235,14 +199,14 @@ const PurchaseForm = () => {
               label="Select Product"
               name="productCode"
               options={products.map((product) => ({
-                label: `${product.product_name} - ${product.product_code}`,
-                value: product.productCode,
-                
+                label: `${product.product_name} - ${product.product_code}`, // Ensure product.productCode is used
+                value: product.product_code,
               }))}
               value={formData.product}
               onChange={(e) => handleProductChange(e.target.value)}
               className="w-64"
             />
+
             {/* Quantity Input */}
             <Input
               id="quantity"

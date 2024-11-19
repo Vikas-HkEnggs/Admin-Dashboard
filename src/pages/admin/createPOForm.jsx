@@ -1,15 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@/components/Elements/Button";
 import Input from "@/components/Elements/Input";
-import "react-toastify/dist/ReactToastify.css"; // Import styles for the toast
-
+import "react-toastify/dist/ReactToastify.css"; 
+import Dropdown from "@/components/Elements/Dropdown";
 
 const CreatePOForm = () => {
-  const [name, setName] = useState("");
-  const [productCode, setProductCode] = useState("");
+  const [product_name, setProduct_name] = useState("");
+  const [product_code, setProduct_code] = useState("");
   const [options, setOptions] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8080/api/v1/admin/allProducts"
+        );
+        console.log(res.data.products);
+        setProducts(res.data.products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const addOptionRow = () => {
     const newOption = { type: "", name: "", value: "", subOptions: [] };
@@ -24,7 +40,7 @@ const CreatePOForm = () => {
     if (key === "type") {
       updatedOptions[index].name = "";
       if (value === "dropdown" || value === "boolean") {
-        updatedOptions[index].values = []; // Initialize values as an empty array
+        updatedOptions[index].values = []; 
         updatedOptions[index].subOptions =
           value === "boolean" ? [{ title: "", value: "", type: "" }] : [];
       } else {
@@ -48,15 +64,15 @@ const CreatePOForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!name || !productCode) {
+    if (!product_name || !product_code) {
       alert("Product Name and Code are required.");
       return;
     }
 
     try {
       await axios.post("http://localhost:8080/api/v1/admin/createPoForm", {
-        name,
-        productCode,
+        product_name,
+        product_code,
         options,
       });
       alert("Product and options added successfully!");
@@ -76,25 +92,29 @@ const CreatePOForm = () => {
           Create PO Form for the Product
         </h2>
 
-        <Input
-          id="name"
-          type="text"
-          label="Product Name"
-          placeholder="Enter product name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
+        <Dropdown
+          label="Product"
+          name="product"
+          options={products.map((product) => ({
+            value: product._id,
+            label: product.product_name, 
+          }))}
+          value={product_name}
+          onChange={(e) => setProduct_name(e.target.value)}
+        />
+    
+
+        <Dropdown
+          label="Product"
+          name="product"
+          options={products.map((product) => ({
+            value: product._id,
+            label: product.product_code, 
+          }))}
+          value={product_code}
+          onChange={(e) => setProduct_code(e.target.value)}
         />
 
-        <Input
-          id="productCode"
-          type="text"
-          label="Product Code"
-          placeholder="Enter product code"
-          value={productCode}
-          onChange={(e) => setProductCode(e.target.value)}
-          required
-        />
 
         {/* Options Section */}
         <div className="mt-6 space-y-4">

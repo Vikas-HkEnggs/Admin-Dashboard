@@ -56,15 +56,15 @@ export const data = [
   {
     title: "Order Punch",
     icon: <DiamondPlus />,
-    link: "/admin/orderPunch",
+    link: "/admin/createOrder2",
     allowedRoles: ["employee1", "employee2", "admin"],
   },
-  {
-    title: "Order Punch2",
-    icon: <DiamondPlus />,
-    link: "/admin/createOrder",
-    allowedRoles: ["employee1", "employee2", "admin"],
-  },
+  // {
+  //   title: "Order Punch",
+  //   icon: <DiamondPlus />,
+  //   link: "/admin/createOrder",
+  //   allowedRoles: ["employee1", "employee2", "admin"],
+  // },
   // {
   //   title: "View Orders",
   //   icon: <Rows4 />,
