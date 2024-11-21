@@ -61,7 +61,7 @@ const AddItems = () => {
         className="mx-auto w-full max-w-3xl space-y-6 rounded-lg bg-white p-6 shadow-lg md:p-10"
       >
         <h2 className="text-center text-2xl font-semibold text-gray-800">
-          Create {itemType === "product" ? "Product" : "Part"}
+          Add {itemType === "product" ? "Product" : "Part"}
         </h2>
 
         {message && <p className="text-center text-sm">{message}</p>}
@@ -114,7 +114,7 @@ const AddItems = () => {
         />
 
         <Button type="submit">
-          Create {itemType === "product" ? "Product" : "Part"}
+          Add {itemType === "product" ? "Product" : "Part"}
         </Button>
       </form>
     </div>
