@@ -17,7 +17,7 @@ const CreatePOForm = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/v1/admin/allProducts"
+          "https://backend-hlrb.onrender.com/api/v1/admin/allProducts"
         );
         // console.log(res.data.products);
         setProducts(res.data.products);
@@ -98,7 +98,7 @@ const CreatePOForm = () => {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/v1/admin/createPoForm", {
+      await axios.post("https://backend-hlrb.onrender.com/api/v1/admin/createPoForm", {
         product_name,
         product_code,
         options,

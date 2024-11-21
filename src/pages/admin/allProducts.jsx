@@ -54,7 +54,7 @@ const AllProducts = () => {
     ) {
       try {
         await axios.post(
-          "http://localhost:8080/api/v1/emp/add-update-inventory",
+          "https://backend-hlrb.onrender.com/api/v1/emp/add-update-inventory",
           {
             product_code: selectedProduct.product_code,
             quantity_available: change, // Send the change in quantity
