@@ -19,8 +19,8 @@ const AddItems = () => {
     try {
       const apiUrl =
         itemType === "product"
-          ? "https://backend-hlrb.onrender.com/api/v1/emp/addProducts"
-          : "https://backend-hlrb.onrender.com/api/v1/emp/addParts";
+          ? "http://localhost:8080/api/v1/emp/addProducts"
+          : "http://localhost:8080/api/v1/emp/addParts";
   
       const payload =
         itemType === "product"

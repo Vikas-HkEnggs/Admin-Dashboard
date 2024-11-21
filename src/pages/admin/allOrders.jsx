@@ -15,7 +15,7 @@ const AllOrders = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backend-hlrb.onrender.com/api/v1/admin/orders",
+          "http://localhost:8080/api/v1/admin/orders",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
