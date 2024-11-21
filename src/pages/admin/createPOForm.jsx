@@ -71,12 +71,17 @@ const CreatePOForm = () => {
 
   
   const handleProductChange = (selectedOption) => {
+    // console.log(selectedOption,"selectedOption");
     const selectedProduct = products.find(
       (product) => product.product_id === selectedOption.value 
     );
+
+    // console.log(selectedProduct.product_name, "selectedProduct.product_name");
+    setProduct_name(selectedProduct.product_name);
   
     if (selectedProduct) {
-      // console.log("Selected Product:", selectedProduct);
+      
+      setProduct_name(selectedProduct.product_name);
       setProduct_code(selectedProduct.product_code); 
     }
   };
@@ -91,6 +96,7 @@ const CreatePOForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(product_code, product_name);
 
     if (!product_name || !product_code) {
       alert("Product Name and Code are required.");
