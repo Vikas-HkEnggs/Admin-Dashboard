@@ -6,7 +6,7 @@ const Input = ({
   required,
   value,
   onChange,
-  className = "w-full", 
+  className = "w-full ", 
 }) => {
   return (
     <div className={className}>
@@ -18,7 +18,7 @@ const Input = ({
         name={id}
         id={id}
         placeholder={placeholder}
-        className={`block rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 ${className}`}
+        className={`block rounded-lg border border-gray-300 bg-gray-50  p-2.5 text-gray-900  ${className}`}
         required={required}
         value={value}
         onChange={onChange}

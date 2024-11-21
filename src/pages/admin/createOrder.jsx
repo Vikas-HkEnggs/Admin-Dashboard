@@ -155,7 +155,7 @@ const PurchaseForm = () => {
 
 
 
-  console.log(products);
+  // console.log(products);
 
   return (
     <div className="container mx-auto p-4">

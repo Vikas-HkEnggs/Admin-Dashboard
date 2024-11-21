@@ -79,9 +79,9 @@ export const data = [
   },
 
   // {
-  //   title: "PO Generate",
-  //   icon: <DocIcon />,
-  //   link: "/admin/documentation",
+  //   title: "Loader",
+  //   icon: <Blocks />,
+  //   link: "/admin/loader",
   //   allowedRoles: ["employee1", "employee2", "admin"],
   // },
 ];

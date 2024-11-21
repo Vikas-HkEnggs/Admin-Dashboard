@@ -7,7 +7,6 @@ import Table from "@/components/Elements/Table";
 import ModalComponent from "@/components/Elements/Modal";
 import Input from "@/components/Elements/Input";
 
-
 const AllProducts = () => {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -90,11 +89,11 @@ const AllProducts = () => {
         size: 200,
         Cell: ({ row }) => (
           <button
-          className="rounded bg-[#0e3758] px-2 py-1 text-white"
-          onClick={() => openModal(row.original)}
-        >
-          Update Quantity
-        </button>
+            className="rounded bg-[#0e3758] px-2 py-1 text-white"
+            onClick={() => openModal(row.original)}
+          >
+            Update Quantity
+          </button>
         ),
       },
     ],
@@ -111,7 +110,11 @@ const AllProducts = () => {
         <CirclePlus className="mr-2" /> Add Product
       </Button>
 
-      <Table columns={columns} data={data} options={{ sorting: true, filtering: true, pagination: true }} />
+      <Table
+        columns={columns}
+        data={data}
+        options={{ sorting: true, filtering: true, pagination: true }}
+      />
 
       <ModalComponent
         isOpen={isModalOpen}
@@ -122,8 +125,8 @@ const AllProducts = () => {
           <Input
             type="number"
             value={quantityChange}
-            onChange={(e) => setQuantityChange(parseInt(e.target.value) || 0)}
-            className="w-36 rounded-lg border border-gray-300 px-4 py-2 text-center focus:outline-none focus:ring focus:ring-blue-300"
+            onChange={(e) => setQuantityChange(parseInt(e.target.value))}
+            className="w-36 rounded-lg  px-4 py-2 text-center focus:outline-none focus:ring focus:ring-blue-300"
           />
           <div className="flex space-x-4">
             <Button

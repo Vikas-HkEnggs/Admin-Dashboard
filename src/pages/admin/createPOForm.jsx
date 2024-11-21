@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@/components/Elements/Button";
 import Input from "@/components/Elements/Input";
-import "react-toastify/dist/ReactToastify.css"; 
+import "react-toastify/dist/ReactToastify.css";
 import Dropdown from "@/components/Elements/Dropdown";
+import Select from "react-select";
 
 const CreatePOForm = () => {
   const [product_name, setProduct_name] = useState("");
@@ -18,7 +19,7 @@ const CreatePOForm = () => {
         const res = await axios.get(
           "http://localhost:8080/api/v1/admin/allProducts"
         );
-        console.log(res.data.products);
+        // console.log(res.data.products);
         setProducts(res.data.products);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -32,6 +33,12 @@ const CreatePOForm = () => {
     setOptions([...options, newOption]);
   };
 
+  const removeLastOption = () => {
+    const updatedOptions = [...options];
+    updatedOptions.pop(); // Remove the last option
+    setOptions(updatedOptions);
+  };
+
   const handleOptionChange = (index, key, value) => {
     const updatedOptions = [...options];
     updatedOptions[index][key] = value;
@@ -40,7 +47,7 @@ const CreatePOForm = () => {
     if (key === "type") {
       updatedOptions[index].name = "";
       if (value === "dropdown" || value === "boolean") {
-        updatedOptions[index].values = []; 
+        updatedOptions[index].values = [];
         updatedOptions[index].subOptions =
           value === "boolean" ? [{ title: "", value: "", type: "" }] : [];
       } else {
@@ -54,12 +61,33 @@ const CreatePOForm = () => {
   const handleSubOptionChange = (optionIndex, subIndex, key, value) => {
     const updatedOptions = [...options];
     updatedOptions[optionIndex].subOptions[subIndex][key] = value;
+
     // Clear value field if suboption type is text
     if (key === "type" && value === "text") {
       updatedOptions[optionIndex].subOptions[subIndex].value = null;
     }
     setOptions(updatedOptions);
   };
+
+  
+  const handleProductChange = (selectedOption) => {
+    const selectedProduct = products.find(
+      (product) => product.product_id === selectedOption.value 
+    );
+  
+    if (selectedProduct) {
+      // console.log("Selected Product:", selectedProduct);
+      setProduct_code(selectedProduct.product_code); 
+    }
+  };
+  
+  
+
+  const productOptions = products.map((product) => ({
+    value: product.product_id,
+    label: product.product_name,
+  }));
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -91,55 +119,53 @@ const CreatePOForm = () => {
         <h2 className="text-center text-2xl font-semibold text-gray-800">
           Create PO Form for the Product
         </h2>
+        <div className="">
+          <label className="text-black mb-2 block font-medium">
+            Product Name
+          </label>
+          <Select
+            options={productOptions}
+            onChange={handleProductChange}
+            placeholder="Select Product Name"
+            className="rounded-lg  py-1"
+          />
+        </div>
 
-        <Dropdown
-          label="Product"
-          name="product"
-          options={products.map((product) => ({
-            value: product._id,
-            label: product.product_name, 
-          }))}
-          value={product_name}
-          onChange={(e) => setProduct_name(e.target.value)}
-        />
-    
-
-        <Dropdown
-          label="Product"
-          name="product"
-          options={products.map((product) => ({
-            value: product._id,
-            label: product.product_code, 
-          }))}
-          value={product_code}
-          onChange={(e) => setProduct_code(e.target.value)}
-        />
-
+        {/* Product Code Field */}
+        <div className="mb-4">
+          <Input
+            id="product-code"
+            type="text"
+            label="Product Code"
+            value={product_code} 
+            placeholder="Product Code will appear here"
+            disabled
+          />
+        </div>
 
         {/* Options Section */}
         <div className="mt-6 space-y-4">
           {options.map((option, idx) => (
-            <div key={idx} className="space-y-2 border-b border-gray-200 p-4">
+            <div
+              key={idx}
+              className="space-y-2 border-b border-gray-200 p-4 relative"
+            >
               {/* Select Type First */}
               <div className="flex items-center space-x-4">
-                <label className="block text-sm font-medium text-gray-700">
-                  Type
-                </label>
-                <select
+                <Dropdown
+                  label="Type"
+                  name={`option-type-${idx}`}
+                  options={[
+                    { value: "dropdown", label: "Dropdown" },
+                    { value: "text", label: "Text" },
+                    { value: "boolean", label: "Boolean" },
+                  ]}
                   value={option.type}
                   onChange={(e) =>
                     handleOptionChange(idx, "type", e.target.value)
                   }
-                  className="w-full rounded-md border p-2"
-                  required
-                >
-                  <option value="" disabled>
-                    Select type
-                  </option>
-                  <option value="dropdown">Dropdown</option>
-                  <option value="text">Text</option>
-                  <option value="boolean">Boolean</option>
-                </select>
+                  className="w-full"
+                />
               </div>
 
               {/* Render fields based on selected type */}
@@ -155,7 +181,7 @@ const CreatePOForm = () => {
                 required
               />
 
-              {/* Show Value input for both dropdown and boolean types */}
+              {/* Show Value input for dropdown and boolean types */}
               {(option.type === "dropdown" || option.type === "boolean") && (
                 <Input
                   id={`option-values-${idx}`}
@@ -242,18 +268,27 @@ const CreatePOForm = () => {
           ))}
         </div>
 
-        {/* Add Option and Option with SubOption buttons */}
+        {/* Add Option Button */}
         <div className="mt-4 flex space-x-4">
           <Button
             type="button"
             onClick={addOptionRow}
-            className="bg-gray-200 text-black hover:bg-gray-300"
+            className="bg-green-400 text-black hover:bg-green-500 focus:ring-4 focus:ring-[#fff]"
           >
             Add Option
           </Button>
+
+          {/* Remove Option Button */}
+          <Button
+            type="button"
+            className=" bg-red-400 text-black hover:bg-red-500 focus:ring-4 focus:ring-[#fff]"
+            onClick={removeLastOption}
+          >
+            Remove Option
+          </Button>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 flex justify-end">
           <Button type="submit">Create</Button>
         </div>
       </form>
