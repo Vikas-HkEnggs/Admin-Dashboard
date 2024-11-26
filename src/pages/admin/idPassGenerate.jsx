@@ -63,7 +63,9 @@ export default function IdPassGenerate() {
         "https://backend-hlrb.onrender.com/api/v1/admin/register",
         requestData,
         {
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+           },
         }
       );
 

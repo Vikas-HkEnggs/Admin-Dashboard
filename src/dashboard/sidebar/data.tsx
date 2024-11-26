@@ -79,9 +79,15 @@ export const data = [
   },
 
   // {
-  //   title: "Loader",
+  //   title: "Order Status",
   //   icon: <Blocks />,
-  //   link: "/admin/loader",
+  //   link: "/admin/OrderStatus",
   //   allowedRoles: ["employee1", "employee2", "admin"],
   // },
+  {
+    title: "Order Status",
+    icon: <Blocks />,
+    link: "/admin/OrderStatus2",
+    allowedRoles: ["employee1", "employee2", "admin"],
+  },
 ];

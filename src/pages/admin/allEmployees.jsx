@@ -14,14 +14,15 @@ const AllEmployees = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/admin/allEmployees",
+          "https://backend-hlrb.onrender.com/api/v1/admin/allEmployees",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
-        setData(response.data.employees);
+        // console.log(response.data.data)
+        setData(response.data.data);
       } catch (error) {
         console.error("Error fetching employee data:", error);
       }

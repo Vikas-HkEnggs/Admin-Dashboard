@@ -20,7 +20,7 @@ const AllParts = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8080/api/v1/admin/allParts",
+        "https://backend-hlrb.onrender.com/api/v1/admin/allParts",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -55,7 +55,7 @@ const AllParts = () => {
     ) {
       try {
         await axios.post(
-          "http://localhost:8080/api/v1/emp/add-update-inventory",
+          "https://backend-hlrb.onrender.com/api/v1/emp/add-update-inventory",
           {
             part_code: selectedPart.part_code,
             quantity_available: change,
