@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
-import { UserRoundPlus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Table from "@/components/Elements/Table";
 
@@ -71,13 +70,8 @@ const AllOrders = () => {
 
   return (
     <div>
-      <h1 className="mb-4 ml-2 text-3xl">All Orders</h1>
-      <button
-        className="absolute right-6 top-[110px] ml-2 flex"
-        onClick={createBtn}
-      >
-        <UserRoundPlus />
-      </button>
+      <h1 className="mb-4 ml-2 text-3xl text-center">All Orders</h1>
+  
       <Table
         columns={columns}
         data={data}
@@ -93,7 +87,6 @@ const AllOrders = () => {
           <div
             className="bg-white p-6 rounded-lg w-1/2 max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
-            style={{ top: "10vh", bottom: "10vh" }} // Adjusts the modal's vertical position
           >
             <h2 className="text-2xl font-bold mb-4">
               {selectedOrder.product_name}
@@ -101,25 +94,35 @@ const AllOrders = () => {
             <table className="min-w-full table-auto">
               <thead>
                 <tr>
-                  <th className="border p-2">Option</th>
+                  <th className="border p-2">Description</th>
                   <th className="border p-2">Value</th>
+                  <th className="border p-2"></th>
                 </tr>
               </thead>
               <tbody>
                 {selectedOrder.optionsSelected &&
-                  Object.entries(selectedOrder.optionsSelected).map(
-                    ([key, value]) => (
-                      <tr key={key}>
-                        <td className="border p-2">{key}</td>
-                        <td className="border p-2">
-                          {/* Handle value being an object */}
-                          {typeof value === "object"
-                            ? JSON.stringify(value)
-                            : value}
-                        </td>
-                      </tr>
-                    )
-                  )}
+                  selectedOrder.optionsSelected.map((option, index) => (
+                    <tr key={index}>
+                      <td className="border p-2">{option.name}</td>
+                      <td className="border p-2">{option.value || "N/A"}</td>
+                      <td className="border p-2">
+                        {/* Only display SubOptions if value is not "NotInclude" */}
+                        {option.value !== "NotInclude" &&
+                        option.subOptions &&
+                        option.subOptions.length > 0 ? ( 
+                          <ul>
+                            {option.subOptions.map((subOption, subIndex) => (
+                              <li key={subIndex}>
+                                {subOption.name}: {subOption.value || "N/A"}
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          "-" // Placeholder if no SubOptions or value is "NotInclude"
+                        )}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
             <button

@@ -9,7 +9,7 @@ export function TopBar() {
   const handleLogout = () => {
     // Clear localStorage
     localStorage.removeItem("token");
-    localStorage.removeItem("userRole");
+    localStorage.removeItem("user");
 
     // Redirect to the login page
     router.push("/auth/signin");

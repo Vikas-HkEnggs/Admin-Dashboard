@@ -9,11 +9,14 @@ const PurchaseForm = () => {
   const [products, setProducts] = useState([]);
   const [company, setCompany] = useState([]);
   const [options, setOptions] = useState([]);
+  const [responseModal, setResponseModal] = useState({
+    visible: false,
+    data: null,
+  });
   const [formData, setFormData] = useState({
     companyName: "",
     customerEmail: "",
     gstNumber: "",
-    // mobile_no: "",
     address: "",
     quantity: 1,
     product: "",
@@ -51,7 +54,7 @@ const PurchaseForm = () => {
   }, []);
 
   const handleProductChange = (selectedOption) => {
-    const product_code = selectedOption?.value; // Extract product_code
+    const product_code = selectedOption?.value; 
     setFormData((prev) => ({ ...prev, product: product_code }));
 
     // Find product details and set options
@@ -124,34 +127,19 @@ const PurchaseForm = () => {
     e.preventDefault();
 
     try {
-      // Map option IDs to their names
-      const transformedOptions = {};
-      options.forEach((option) => {
-        if (formData.optionsSelected[option.id]) {
-          transformedOptions[option.name] = formData.optionsSelected[option.id];
-        }
-      });
+      // Create ordered optionsSelected array
+      const orderedOptions = options.map((option) => ({
+        name: option.name,
+        value: formData.optionsSelected[option.id] || null,
+        subOptions: option.subOptions
+          ? option.subOptions.map((subOption) => ({
+              name: subOption.title,
+              value: formData.subOptions[subOption.id] || null,
+            }))
+          : null,
+      }));
 
-      // Add subOptions to the transformed structure
-      const transformedSubOptions = {};
-      options.forEach((option) => {
-        if (option.subOptions) {
-          option.subOptions.forEach((subOption) => {
-            if (formData.subOptions[subOption.id]) {
-              transformedSubOptions[subOption.title] =
-                formData.subOptions[subOption.id];
-            }
-          });
-        }
-      });
-
-      // Merge options and subOptions
-      const finalOptions = {
-        ...transformedOptions,
-        subOptions: transformedSubOptions,
-      };
-
-      // Submit the transformed data
+      // Submit the ordered data to the backend
       const response = await axios.post(
         "https://backend-hlrb.onrender.com/api/v1/emp/createOrder",
         {
@@ -159,27 +147,23 @@ const PurchaseForm = () => {
           companyName: formData.companyName,
           customerEmail: formData.customerEmail,
           gstNumber: formData.gstNumber,
-          // mobile_no: formData.mobile_no,
           address: formData.address,
           quantity: formData.quantity,
-          optionsSelected: finalOptions, // Use transformed options
+          optionsSelected: orderedOptions,
         }
       );
 
-      const { statusMessage, productAvailable } = response.data;
-      setFormData((prev) => ({
-        ...prev,
-        availability: {
-          message: statusMessage,
-          available: productAvailable,
-        },
-      }));
+      setResponseModal({ visible: true, data: response.data });
 
+      // Show success toast notification
       toast.success("Order Created successfully!", {
         position: "top-right",
         autoClose: 3000,
       });
+
+      console.log("Order response:", response.data);
     } catch (error) {
+      // Show error toast notification
       console.error("Failed to submit order form:", error);
       toast.error("Failed to submit the order. Please try again.", {
         position: "top-right",
@@ -187,7 +171,6 @@ const PurchaseForm = () => {
       });
     }
   };
-
   const companyOptions = company.map((comp) => ({
     label: comp.party_name,
     value: comp.id,
@@ -197,6 +180,10 @@ const PurchaseForm = () => {
     label: `${product.product_name} - ${product.product_code}`,
     value: product.product_code,
   }));
+
+  const closeModal = () => {
+    setResponseModal({ visible: false, data: null });
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -222,7 +209,9 @@ const PurchaseForm = () => {
               />
             </div>
             <div className="flex flex-col justify-start items-start">
-              <label className="text-black mb-2 block font-medium">GST Number</label>
+              <label className="text-black mb-2 block font-medium">
+                GST Number
+              </label>
               <input
                 id="gstNumber"
                 type="text"
@@ -276,7 +265,7 @@ const PurchaseForm = () => {
             <ReusableSelect
               label="Product"
               options={productOptions}
-              onChange={handleProductChange} 
+              onChange={handleProductChange}
               value={formData.product}
               placeholder="Select Product"
               className="w-72"
@@ -319,7 +308,7 @@ const PurchaseForm = () => {
                 {option.type === "text" && (
                   <div className="flex flex-col justify-start items-start">
                     <label className="text-black mb-2 block font-medium">
-                      Email
+                      Thickness
                     </label>
                     <input
                       id={option.id}
@@ -421,6 +410,32 @@ const PurchaseForm = () => {
           <Button type="submit">Submit Order</Button>
         </div>
       </form>
+       {/* Modal */}
+       {responseModal.visible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 className="text-lg font-bold mb-4">Order Response</h2>
+            <p className="mb-4">{responseModal.data?.statusMessage?.message}</p>
+            <div className="flex justify-end space-x-4">
+              {responseModal.data?.statusMessage?.available ? (
+                <Button onClick={() => alert("Proceeding to delivery")}>
+                  Go for Deliver
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => alert("Creating indent for the order")}
+                  className="bg-red-500"
+                >
+                  Create Indent
+                </Button>
+              )}
+              <Button onClick={closeModal} className="bg-gray-500">
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

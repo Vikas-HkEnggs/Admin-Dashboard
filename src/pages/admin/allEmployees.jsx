@@ -21,7 +21,8 @@ const AllEmployees = () => {
             },
           }
         );
-        setData(response.data.employees);
+        // console.log(response.data.data)
+        setData(response.data.data);
       } catch (error) {
         console.error("Error fetching employee data:", error);
       }

@@ -11,7 +11,7 @@ import Loader from "@/components/Layouts/Loader/Loader";
 const SignIn = () => {
   const [data, setData] = useState({ email: "", password: "" });
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false); // State for loader
+  const [loading, setLoading] = useState(false); 
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -21,7 +21,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
-    setLoading(true); // Show loader while processing
+    setLoading(true); 
 
     try {
       const res = await axios.post(
@@ -32,18 +32,18 @@ const SignIn = () => {
       if (res.status === 200) {
         const { token, employee } = res.data;
 
-        // Save the token and user data to localStorage
+        
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(employee));
 
         console.log("Successfully logged in");
-        router.push("/"); // Redirect to the home page or dashboard
+        router.push("/"); 
       }
     } catch (err) {
       console.error("Login error:", err);
       setError("Login failed. Please check your credentials.");
     } finally {
-      setLoading(false); // Hide loader after processing
+      setLoading(false); 
     }
   };
 

@@ -22,7 +22,7 @@ const PurchaseForm = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8080/api/v1/admin/products"
+          "https://backend-hlrb.onrender.com/api/v1/admin/products"
         );
         setProducts(res.data);
       } catch (error) {
@@ -38,7 +38,7 @@ const PurchaseForm = () => {
       const product = products.find((p) => p.productCode === productCode); 
       if (product) {
         const res = await axios.get(
-          `http://localhost:8080/api/v1/emp/products/${product.id}/options`
+          `https://backend-hlrb.onrender.com/api/v1/emp/products/${product.id}/options`
         );
 
         const updatedOptions = res.data.map((option) => {
@@ -122,7 +122,7 @@ const PurchaseForm = () => {
     console.log(formData);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/emp/createOrder",
+        "https://backend-hlrb.onrender.com/api/v1/emp/createOrder",
         {
           product_code: formData.product, 
           customerName: formData.customerName,
