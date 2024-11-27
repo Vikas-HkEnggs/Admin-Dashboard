@@ -56,38 +56,19 @@ export const data = [
   {
     title: "Order Punch",
     icon: <DiamondPlus />,
-    link: "/admin/createOrder2",
+    link: "/admin/orderPunch",
     allowedRoles: ["employee1", "employee2", "admin"],
   },
-  // {
-  //   title: "Order Punch",
-  //   icon: <DiamondPlus />,
-  //   link: "/admin/createOrder",
-  //   allowedRoles: ["employee1", "employee2", "admin"],
-  // },
-  // {
-  //   title: "View Orders",
-  //   icon: <Rows4 />,
-  //   link: "/admin/viewOrders",
-  //   allowedRoles: ["employee1", "employee2","admin"],
-  // },
   {
     title: "Add Items",
     icon: <Blocks />,
     link: "/admin/addItems",
     allowedRoles: ["employee1", "employee2","admin"],
   },
-
-  // {
-  //   title: "Order Status",
-  //   icon: <Blocks />,
-  //   link: "/admin/OrderStatus",
-  //   allowedRoles: ["employee1", "employee2", "admin"],
-  // },
   {
     title: "Order Status",
     icon: <Blocks />,
-    link: "/admin/OrderStatus2",
+    link: "/admin/orderStatus",
     allowedRoles: ["employee1", "employee2", "admin"],
   },
 ];

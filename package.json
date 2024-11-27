@@ -12,6 +12,7 @@
     "lint": "next lint && eslint '*/**/*.{ts,tsx,js,jsx}' --fix"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.3.0",
     "axios": "^1.7.7",
     "lucide-react": "^0.456.0",
     "material-react-table": "^3.0.1",

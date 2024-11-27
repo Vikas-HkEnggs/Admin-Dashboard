@@ -60,7 +60,7 @@ export default function IdPassGenerate() {
       };
 
       const res = await axios.post(
-        "https://backend-hlrb.onrender.com/api/v1/admin/register",
+        "http://localhost:8080/api/v1/admin/register",
         requestData,
         {
           headers: { 

@@ -20,7 +20,7 @@ const AllParts = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "https://backend-hlrb.onrender.com/api/v1/admin/allParts",
+        "http://localhost:8080/api/v1/admin/allParts",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -55,7 +55,7 @@ const AllParts = () => {
     ) {
       try {
         await axios.post(
-          "https://backend-hlrb.onrender.com/api/v1/emp/add-update-inventory",
+          "http://localhost:8080/api/v1/emp/add-update-inventory",
           {
             part_code: selectedPart.part_code,
             quantity_available: change,
@@ -111,7 +111,7 @@ const AllParts = () => {
         <CirclePlus className="mr-2" /> Add Part
       </Button>
       
-      {/* Using reusable Table component */}
+      
       <Table
         columns={columns}
         data={data}

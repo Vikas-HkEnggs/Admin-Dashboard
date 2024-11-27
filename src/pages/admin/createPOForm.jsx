@@ -17,7 +17,12 @@ const CreatePOForm = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get(
-          "https://backend-hlrb.onrender.com/api/v1/admin/allProducts"
+          "http://localhost:8080/api/v1/admin/allProducts",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
         );
         // console.log(res.data.products);
         setProducts(res.data.products);
@@ -104,10 +109,14 @@ const CreatePOForm = () => {
     }
 
     try {
-      await axios.post("https://backend-hlrb.onrender.com/api/v1/admin/createPoForm", {
+      await axios.post("http://localhost:8080/api/v1/admin/createPoForm", {
         product_name,
         product_code,
         options,
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
       });
       alert("Product and options added successfully!");
     } catch (error) {

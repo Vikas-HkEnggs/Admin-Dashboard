@@ -19,15 +19,19 @@ const AddItems = () => {
     try {
       const apiUrl =
         itemType === "product"
-          ? "https://backend-hlrb.onrender.com/api/v1/emp/addProducts"
-          : "https://backend-hlrb.onrender.com/api/v1/emp/addParts";
+          ? "http://localhost:8080/api/v1/emp/addProducts"
+          : "http://localhost:8080/api/v1/emp/addParts";
   
       const payload =
         itemType === "product"
           ? { product_name: name, product_code: code }
           : { part_name: name, part_code: code };
   
-      const response = await axios.post(apiUrl, payload);
+      const response = await axios.post(apiUrl, payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       console.log("API response:", response.data);
   
       const itemName = response.data[itemType]?.name || name;

@@ -8,13 +8,13 @@ const AllEmployees = () => {
   const [data, setData] = useState([]);
   const router = useRouter();
 
-  console.log(data);
+  // console.log(data);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://backend-hlrb.onrender.com/api/v1/admin/allEmployees",
+          "http://localhost:8080/api/v1/admin/allEmployees",
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
